@@ -1,0 +1,167 @@
+# Build script for application 'timerLed'
+
+# == Auto-generated file.  Do not edit. ==
+
+builddir =./_build_timerLed/wp85
+
+cFlags = -I ./_build_timerLed/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/iot_mangOH/timer_led
+
+cxxFlags = -I ./_build_timerLed/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/iot_mangOH/timer_led
+
+ldFlags =
+
+target = wp85
+
+ifgenFlags =  --import-dir /home/mangoh/legato_framework/legato/interfaces --import-dir /home/mangoh/legato_framework/legato/framework/include --import-dir /home/mangoh/mangOH/apps/iot_mangOH/timer_led
+
+rule CompileC
+  description = Compiling C source
+  depfile = $out.d
+  command =  /opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi -MMD -MF $out.d -c $in -o $out -DLE_FILENAME=`basename $in` -Wall -fPIC -Werror -fvisibility=hidden -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED $cFlags
+
+rule CompileCxx
+  description = Compiling C++ source
+  depfile = $out.d
+  command =  /opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++ --sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi -MMD -MF $out.d -c $in -o $out -DLE_FILENAME=`basename $in` -Wall -fPIC -Werror -fvisibility=hidden  -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED $cxxFlags
+
+rule LinkCLib
+  description = Linking C library
+  command =  /opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi -shared -o $out $in $ldFlags
+
+rule LinkCxxLib
+  description = Linking C++ library
+  command =  /opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++ --sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi -shared -o $out $in $ldFlags
+
+rule LinkCExe
+  description = Linking C executable
+  command =  /opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi -fPIE -pie -o $out $in $ldFlags
+
+rule LinkCxxExe
+  description = Linking C++ executable
+  command =  /opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++ --sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi -fPIE -pie -o $out $in $ldFlags
+
+rule CompileJava
+  description = Compiling Java source
+  command = javac -cp $classPath -d `dirname $out` $in && touch $out
+
+rule MakeJar
+  description = Making JAR file
+  command = INDIR=`dirname $in`; find $$INDIR -name '*.class' -printf "-C $$INDIR\n%P\n"|xargs jar -cf $out
+
+rule MakeKernelModule
+  description = Build kernel driver module
+  depfile = $out.d
+  command = make -C $in
+
+rule BuildExternal
+  description = Running external build step
+  command = cd $builddir/$workingdir && $
+            export CFLAGS="--sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi $cFlags" $
+            CXXFLAGS="--sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi $cxxFlags" $
+            LDFLAGS="--sysroot=/opt/swi/y22-ext-SWI9X15Y_07.13.05.00/sysroots/armv7a-neon-poky-linux-gnueabi $ldFlags" $
+            PATH="$${LEGATO_ROOT}/bin:/opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi:/opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/usr/bin:/opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/bin:/opt/swi/y22-ext-wp85/sysroots/x86_64-pokysdk-linux/sbin:$$PATH" $
+            && $
+            $externalCommand
+
+rule GenInterfaceCode
+  description = Generating IPC interface code
+  command = ifgen --output-dir $outputDir $ifgenFlags $in
+
+rule GenPyApiCExtension
+  description = Generating Python API C Extension
+  command = cextgenerator.py $in -o $workDir > /dev/null
+rule CopyFile
+  description = Copying file
+  command = cp -d -f -T $in $out
+
+rule RegenNinjaScript
+  description = Regenerating build script
+  generator = 1
+  command = mkapp --dont-run-ninja "-t" "wp85" "timerLed.adef"
+
+rule BundleFile
+  description = Bundling file
+  command = legato-install -m $modeFlags $in $out
+
+rule MakeAppInfoProperties
+  description = Creating info.properties
+  command = rm -f $out && $
+            md5=$$( ( cd $workingDir/staging && $
+                      find -P -print0 |LC_ALL=C sort -z && $
+                      find -P -type f -print0 |LC_ALL=C sort -z |xargs -0 md5sum && $
+                      find -P -type l -print0 |LC_ALL=C sort -z |xargs -0 -r -n 1 readlink $
+                    ) | md5sum) && $
+            md5=$${md5%% *} && $
+            ( echo "app.name=$name" && $
+              echo "app.md5=$$md5" && $
+              echo "app.version=$version" && $
+              echo "legato.version=`cat $$LEGATO_ROOT/version`" $
+            ) > $out
+
+rule PackApp
+  description = Packaging app
+  command = $
+            mtime=`stat -c %Y $adefPath` && $
+            find $workingDir/staging -exec touch --no-dereference --date=@$$mtime {} \; && $
+            (cd $workingDir/staging && find . -print0 | LC_ALL=C sort -z |tar --no-recursion --null -T - -cjf - ) > $workingDir/$name.$target && $
+            tarballSize=`stat -c '%s' $workingDir/$name.$target` && $
+            md5=`grep '^app.md5=' $in | sed 's/^app.md5=//'` && $
+            ( printf '{\n' && $
+              printf '"command":"updateApp",\n' && $
+              printf '"name":"$name",\n' && $
+              printf '"version":"$version",\n' && $
+              printf '"md5":"%s",\n' "$$md5" && $
+              printf '"size":%s\n' "$$tarballSize" && $
+              printf '}' && $
+              cat $workingDir/$name.$target $
+            ) > $out
+
+rule BinPackApp
+  description = Packaging app for distribution.
+  command = cp -r $stagingDir/* $workingDir/ && $
+            rm $workingDir/info.properties $workingDir/root.cfg && $
+            mtime=`stat -c %Y $adefPath` && $
+            find $workingDir -exec touch  --no-dereference --date=@$$mtime {} \; && $
+            (cd $workingDir/ && find . -print0 |LC_ALL=C sort -z  |tar --no-recursion --null -T - -cjf - ) > $out
+
+build $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_client.c.o: CompileC $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_client.c | $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_messages.h $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_interface.h
+  cFlags = $cFlags
+
+build $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_client.c $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_interface.h $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_messages.h: GenInterfaceCode /home/mangoh/legato_framework/legato/interfaces/le_gpio.api |
+  ifgenFlags = --gen-client --gen-interface --gen-local --name-prefix mangoh_ledGpio $ifgenFlags
+  outputDir = $builddir/api/033d740f7f2acbb89187e09a22f1acca/client
+
+build _build_timerLed/wp85/staging/read-only/lib/libComponent_timerLedComponent.so: LinkCLib $builddir/component/5f82e4f2377bb5fae504c3c3d894219d/obj/5a5ba7e0a8369aa1e2b0a1d55435177d.o $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_client.c.o $builddir/component/5f82e4f2377bb5fae504c3c3d894219d/obj/_componentMain.c.o | /home/mangoh/legato_framework/legato/build/wp85/framework/lib/liblegato.so
+  ldFlags =  -L_build_timerLed/wp85/staging/read-only/lib -Wl,--enable-new-dtags,-rpath="\$$ORIGIN/../lib" "-L$$LEGATO_BUILD/framework/lib" -llegato -lpthread -lrt -lm
+
+build $builddir/component/5f82e4f2377bb5fae504c3c3d894219d/obj/5a5ba7e0a8369aa1e2b0a1d55435177d.o: CompileC /home/mangoh/mangOH/apps/iot_mangOH/timer_led/timerLedComponent/timerLed.c || $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_interface.h $builddir/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_messages.h 
+  cFlags = $cFlags -I$builddir/component/5f82e4f2377bb5fae504c3c3d894219d/src -I$builddir/api/033d740f7f2acbb89187e09a22f1acca/client -DLE_COMPONENT_NAME=timerLedComponent -DLE_LOG_SESSION=timerLedComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=timerLedComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _timerLedComponent_COMPONENT_INIT()"
+
+build $builddir/component/5f82e4f2377bb5fae504c3c3d894219d/obj/_componentMain.c.o: CompileC $builddir/component/5f82e4f2377bb5fae504c3c3d894219d/src/_componentMain.c
+  cFlags = $cFlags -I$builddir/component/5f82e4f2377bb5fae504c3c3d894219d/src -I$builddir/api/033d740f7f2acbb89187e09a22f1acca/client -DLE_COMPONENT_NAME=timerLedComponent -DLE_LOG_SESSION=timerLedComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=timerLedComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _timerLedComponent_COMPONENT_INIT()"
+
+build $builddir/app/timerLed/obj/timerLed/_main.c.o: CompileC _build_timerLed/wp85/app/timerLed/src/timerLed/_main.c
+  cFlags = $cFlags -DLE_COMPONENT_NAME=timerLed_exe -DLE_LOG_SESSION=timerLed_exe_LogSession -DLE_LOG_LEVEL_FILTER_PTR=timerLed_exe_LogLevelFilterPtr 
+
+build $builddir/app/timerLed/obj/timerLed/timerLed: LinkCExe $builddir/app/timerLed/obj/timerLed/_main.c.o | _build_timerLed/wp85/staging/read-only/lib/libComponent_timerLedComponent.so /home/mangoh/legato_framework/legato/build/wp85/framework/lib/liblegato.so /home/mangoh/legato_framework/legato/build/$target/framework/lib/liblegato.so
+  ldFlags = -rdynamic -Wl,--enable-new-dtags,-rpath="\$$ORIGIN/../lib" -L_build_timerLed/wp85/staging/read-only/lib "-L_build_timerLed/wp85/staging/read-only/lib" -lComponent_timerLedComponent "-L$$LEGATO_BUILD/framework/lib" -llegato -lpthread -lrt -ldl -lm $ldFlags
+
+build $builddir/app/timerLed/staging/read-only/lib/libComponent_timerLedComponent.so : BundleFile _build_timerLed/wp85/staging/read-only/lib/libComponent_timerLedComponent.so
+  modeFlags = u+rw+x,g+r+x,o+x+r-w
+
+build $builddir/app/timerLed/staging/read-only/bin/timerLed : BundleFile $builddir/app/timerLed/obj/timerLed/timerLed
+  modeFlags = u+rw+x,g+r+x,o+x+r-w
+
+build $builddir/app/timerLed/staging/info.properties : MakeAppInfoProperties | $builddir/app/timerLed/staging/read-only/lib/libComponent_timerLedComponent.so $builddir/app/timerLed/staging/read-only/bin/timerLed $builddir/app/timerLed/staging/root.cfg
+  name = timerLed
+  version = 1.0.0
+  workingDir = $builddir/app/timerLed
+
+build timerLed.$target.update: PackApp $builddir/app/timerLed/staging/info.properties
+  name = timerLed
+  adefPath = /home/mangoh/mangOH/apps/iot_mangOH/timer_led/timerLed.adef
+  version = 1.0.0
+  workingDir = $builddir/app/timerLed
+
+build _build_timerLed/wp85/build.ninja: RegenNinjaScript | /home/mangoh/legato_framework/legato/interfaces/le_gpio.api /home/mangoh/mangOH/apps/iot_mangOH/timer_led/timerLedComponent/Component.cdef
+

@@ -1,0 +1,14 @@
+# ninja log v5
+0	133	1544477274	_build_timerLed/wp85/component/5f82e4f2377bb5fae504c3c3d894219d/obj/_componentMain.c.o	761e78069aaa7556
+1	229	1544477274	_build_timerLed/wp85/app/timerLed/obj/timerLed/_main.c.o	c1c9e87efda0fa30
+0	1901	1544477276	_build_timerLed/wp85/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_client.c	2ece77de6372b16c
+0	1901	1544477276	_build_timerLed/wp85/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_interface.h	2ece77de6372b16c
+0	1901	1544477276	_build_timerLed/wp85/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_messages.h	2ece77de6372b16c
+1902	2048	1544477276	_build_timerLed/wp85/component/5f82e4f2377bb5fae504c3c3d894219d/obj/5a5ba7e0a8369aa1e2b0a1d55435177d.o	5ef5d346f07fb4a8
+1901	2234	1544477276	_build_timerLed/wp85/api/033d740f7f2acbb89187e09a22f1acca/client/mangoh_ledGpio_client.c.o	f172f2e84bea75cc
+2234	2272	1544477276	_build_timerLed/wp85/staging/read-only/lib/libComponent_timerLedComponent.so	921472b2cef2f55
+2272	2287	1544477276	_build_timerLed/wp85/app/timerLed/staging/read-only/lib/libComponent_timerLedComponent.so	467c76978bc2f00c
+2272	2314	1544477276	_build_timerLed/wp85/app/timerLed/obj/timerLed/timerLed	bbc227f6e9727569
+2314	2319	1544477276	_build_timerLed/wp85/app/timerLed/staging/read-only/bin/timerLed	2cb18903febf93cc
+2319	2337	1544477276	_build_timerLed/wp85/app/timerLed/staging/info.properties	b95d2dbf0f7b5737
+2338	2377	1544477276	timerLed.wp85.update	39f98ad8e3b16e36
