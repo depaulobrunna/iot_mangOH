@@ -1,0 +1,12 @@
+executables:
+{
+    helloWorld = ( helloComponent )
+}
+ 
+processes:
+{
+    run:
+    {
+        ( helloWorld )
+    }
+}

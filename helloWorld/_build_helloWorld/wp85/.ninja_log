@@ -1,0 +1,10 @@
+# ninja log v5
+0	179	1544459640	_build_helloWorld/wp85/component/a4362a0096f3d3c6a4ad00efe2eb3631/obj/5f1eca0bc161fa0a71dd9fe6cf0e369b.o	f248a1a262575657
+2	230	1544459640	_build_helloWorld/wp85/component/a4362a0096f3d3c6a4ad00efe2eb3631/obj/_componentMain.c.o	b3f8f05824c38c7b
+5	288	1544459640	_build_helloWorld/wp85/app/helloWorld/obj/helloWorld/_main.c.o	2b92dc467d2ef941
+230	305	1544459640	_build_helloWorld/wp85/staging/read-only/lib/libComponent_helloComponent.so	babbbdd36a8cf33e
+305	310	1544459640	_build_helloWorld/wp85/app/helloWorld/staging/read-only/lib/libComponent_helloComponent.so	46d8ea60ea8c15c
+305	348	1544459640	_build_helloWorld/wp85/app/helloWorld/obj/helloWorld/helloWorld	85ae23d73295b398
+348	352	1544459640	_build_helloWorld/wp85/app/helloWorld/staging/read-only/bin/helloWorld	ea35cee552225300
+352	366	1544459640	_build_helloWorld/wp85/app/helloWorld/staging/info.properties	341be762bf872767
+366	397	1544459640	helloWorld.wp85.update	79fa196eef893b48
