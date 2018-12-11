@@ -4,15 +4,15 @@
 
 builddir =./_build_helloWorld/wp85
 
-cFlags = -I ./_build_helloWorld/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/helloWorld
+cFlags = -I ./_build_helloWorld/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/iot_mangOH/helloWorld
 
-cxxFlags = -I ./_build_helloWorld/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/helloWorld
+cxxFlags = -I ./_build_helloWorld/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/iot_mangOH/helloWorld
 
 ldFlags =
 
 target = wp85
 
-ifgenFlags =  --import-dir /home/mangoh/legato_framework/legato/interfaces --import-dir /home/mangoh/legato_framework/legato/framework/include --import-dir /home/mangoh/mangOH/apps/helloWorld
+ifgenFlags =  --import-dir /home/mangoh/legato_framework/legato/interfaces --import-dir /home/mangoh/legato_framework/legato/framework/include --import-dir /home/mangoh/mangOH/apps/iot_mangOH/helloWorld
 
 rule CompileC
   description = Compiling C source
@@ -124,14 +124,14 @@ rule BinPackApp
             find $workingDir -exec touch  --no-dereference --date=@$$mtime {} \; && $
             (cd $workingDir/ && find . -print0 |LC_ALL=C sort -z  |tar --no-recursion --null -T - -cjf - ) > $out
 
-build _build_helloWorld/wp85/staging/read-only/lib/libComponent_helloComponent.so: LinkCLib $builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/obj/5f1eca0bc161fa0a71dd9fe6cf0e369b.o $builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/obj/_componentMain.c.o | /home/mangoh/legato_framework/legato/build/wp85/framework/lib/liblegato.so
+build _build_helloWorld/wp85/staging/read-only/lib/libComponent_helloComponent.so: LinkCLib $builddir/component/74dd0a622998a2b1761c128f03f1c466/obj/52a3709a5bff1db524cc81d557e527c4.o $builddir/component/74dd0a622998a2b1761c128f03f1c466/obj/_componentMain.c.o | /home/mangoh/legato_framework/legato/build/wp85/framework/lib/liblegato.so
   ldFlags =  -L_build_helloWorld/wp85/staging/read-only/lib -Wl,--enable-new-dtags,-rpath="\$$ORIGIN/../lib" "-L$$LEGATO_BUILD/framework/lib" -llegato -lpthread -lrt -lm
 
-build $builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/obj/5f1eca0bc161fa0a71dd9fe6cf0e369b.o: CompileC /home/mangoh/mangOH/apps/helloWorld/helloComponent/helloWorld.c
-  cFlags = $cFlags -I$builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/src -DLE_COMPONENT_NAME=helloComponent -DLE_LOG_SESSION=helloComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=helloComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _helloComponent_COMPONENT_INIT()"
+build $builddir/component/74dd0a622998a2b1761c128f03f1c466/obj/52a3709a5bff1db524cc81d557e527c4.o: CompileC /home/mangoh/mangOH/apps/iot_mangOH/helloWorld/helloComponent/helloWorld.c
+  cFlags = $cFlags -I$builddir/component/74dd0a622998a2b1761c128f03f1c466/src -DLE_COMPONENT_NAME=helloComponent -DLE_LOG_SESSION=helloComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=helloComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _helloComponent_COMPONENT_INIT()"
 
-build $builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/obj/_componentMain.c.o: CompileC $builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/src/_componentMain.c
-  cFlags = $cFlags -I$builddir/component/a4362a0096f3d3c6a4ad00efe2eb3631/src -DLE_COMPONENT_NAME=helloComponent -DLE_LOG_SESSION=helloComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=helloComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _helloComponent_COMPONENT_INIT()"
+build $builddir/component/74dd0a622998a2b1761c128f03f1c466/obj/_componentMain.c.o: CompileC $builddir/component/74dd0a622998a2b1761c128f03f1c466/src/_componentMain.c
+  cFlags = $cFlags -I$builddir/component/74dd0a622998a2b1761c128f03f1c466/src -DLE_COMPONENT_NAME=helloComponent -DLE_LOG_SESSION=helloComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=helloComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _helloComponent_COMPONENT_INIT()"
 
 build $builddir/app/helloWorld/obj/helloWorld/_main.c.o: CompileC _build_helloWorld/wp85/app/helloWorld/src/helloWorld/_main.c
   cFlags = $cFlags -DLE_COMPONENT_NAME=helloWorld_exe -DLE_LOG_SESSION=helloWorld_exe_LogSession -DLE_LOG_LEVEL_FILTER_PTR=helloWorld_exe_LogLevelFilterPtr 
@@ -152,9 +152,9 @@ build $builddir/app/helloWorld/staging/info.properties : MakeAppInfoProperties |
 
 build helloWorld.$target.update: PackApp $builddir/app/helloWorld/staging/info.properties
   name = helloWorld
-  adefPath = /home/mangoh/mangOH/apps/helloWorld/helloWorld.adef
+  adefPath = /home/mangoh/mangOH/apps/iot_mangOH/helloWorld/helloWorld.adef
   version = 
   workingDir = $builddir/app/helloWorld
 
-build _build_helloWorld/wp85/build.ninja: RegenNinjaScript | /home/mangoh/mangOH/apps/helloWorld/helloComponent/Component.cdef
+build _build_helloWorld/wp85/build.ninja: RegenNinjaScript | /home/mangoh/mangOH/apps/iot_mangOH/helloWorld/helloComponent/Component.cdef
 

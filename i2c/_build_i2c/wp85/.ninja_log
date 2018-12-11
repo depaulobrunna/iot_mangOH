@@ -1,0 +1,10 @@
+# ninja log v5
+259	2981	1544556128	_build_i2c/wp85/app/i2c/obj/i2c/_main.c.o	584e8d64f1526576
+259	2981	1544556128	_build_i2c/wp85/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/obj/_componentMain.c.o	9d43bd2c1d270a0b
+0	161	1544563427	_build_i2c/wp85/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/obj/8c673d4048d3df833165956c6ee3d1b3.o	df82f67f03b5dac4
+161	696	1544563428	_build_i2c/wp85/staging/read-only/lib/libComponent_i2cComponent.so	2e5acb3b92c84951
+697	754	1544563428	_build_i2c/wp85/app/i2c/staging/read-only/lib/libComponent_i2cComponent.so	2f2c59e2d3069bd1
+696	800	1544563428	_build_i2c/wp85/app/i2c/obj/i2c/i2c	477b272e39c32478
+800	805	1544563428	_build_i2c/wp85/app/i2c/staging/read-only/bin/i2c	b9908ec536de25d0
+805	858	1544563428	_build_i2c/wp85/app/i2c/staging/info.properties	906aa8bbdf96689a
+859	935	1544563428	i2c.wp85.update	cf157b3253e06ca2

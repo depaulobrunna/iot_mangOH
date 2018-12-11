@@ -13,7 +13,7 @@
 
 #define LED_SAMPLE_INTERVAL_IN_MILLISECONDS (1000)
 
-static int8_t state = 0;
+
 
 //--------------------------------------------------------------------------------------------------
 /**
@@ -40,6 +40,7 @@ static void ledTimer
     le_timer_Ref_t ledTimerRef
 )
 {
+    static int8_t state = 0;
     mangoh_ledGpio_SetEdgeSense(MANGOH_LEDGPIO_EDGE_BOTH);
     if (state)
     {

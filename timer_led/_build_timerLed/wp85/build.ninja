@@ -154,13 +154,13 @@ build $builddir/app/timerLed/staging/read-only/bin/timerLed : BundleFile $buildd
 
 build $builddir/app/timerLed/staging/info.properties : MakeAppInfoProperties | $builddir/app/timerLed/staging/read-only/lib/libComponent_timerLedComponent.so $builddir/app/timerLed/staging/read-only/bin/timerLed $builddir/app/timerLed/staging/root.cfg
   name = timerLed
-  version = 1.0.0
+  version = 
   workingDir = $builddir/app/timerLed
 
 build timerLed.$target.update: PackApp $builddir/app/timerLed/staging/info.properties
   name = timerLed
   adefPath = /home/mangoh/mangOH/apps/iot_mangOH/timer_led/timerLed.adef
-  version = 1.0.0
+  version = 
   workingDir = $builddir/app/timerLed
 
 build _build_timerLed/wp85/build.ninja: RegenNinjaScript | /home/mangoh/legato_framework/legato/interfaces/le_gpio.api /home/mangoh/mangOH/apps/iot_mangOH/timer_led/timerLedComponent/Component.cdef

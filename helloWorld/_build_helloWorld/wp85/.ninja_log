@@ -8,3 +8,12 @@
 348	352	1544459640	_build_helloWorld/wp85/app/helloWorld/staging/read-only/bin/helloWorld	ea35cee552225300
 352	366	1544459640	_build_helloWorld/wp85/app/helloWorld/staging/info.properties	341be762bf872767
 366	397	1544459640	helloWorld.wp85.update	79fa196eef893b48
+71	231	1544533343	_build_helloWorld/wp85/app/helloWorld/obj/helloWorld/_main.c.o	61475ddc93ae78bb
+68	282	1544533343	_build_helloWorld/wp85/component/74dd0a622998a2b1761c128f03f1c466/obj/52a3709a5bff1db524cc81d557e527c4.o	162553a4a825b1b
+70	318	1544533343	_build_helloWorld/wp85/component/74dd0a622998a2b1761c128f03f1c466/obj/_componentMain.c.o	cc189af8c7d182ef
+319	353	1544533343	_build_helloWorld/wp85/staging/read-only/lib/libComponent_helloComponent.so	5d486f005cdfd02f
+354	374	1544533343	_build_helloWorld/wp85/app/helloWorld/staging/read-only/lib/libComponent_helloComponent.so	46d8ea60ea8c15c
+354	410	1544533343	_build_helloWorld/wp85/app/helloWorld/obj/helloWorld/helloWorld	85ae23d73295b398
+410	415	1544533343	_build_helloWorld/wp85/app/helloWorld/staging/read-only/bin/helloWorld	ea35cee552225300
+415	436	1544533343	_build_helloWorld/wp85/app/helloWorld/staging/info.properties	341be762bf872767
+436	476	1544533343	helloWorld.wp85.update	4102969d900bc8f9

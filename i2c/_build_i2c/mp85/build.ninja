@@ -1,0 +1,160 @@
+# Build script for application 'i2c'
+
+# == Auto-generated file.  Do not edit. ==
+
+builddir =./_build_i2c/mp85
+
+cFlags = -I ./_build_i2c/mp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/iot_mangOH/i2c
+
+cxxFlags = -I ./_build_i2c/mp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/include -I/home/mangoh/mangOH/apps/iot_mangOH/i2c
+
+ldFlags =
+
+target = mp85
+
+ifgenFlags =  --import-dir /home/mangoh/legato_framework/legato/interfaces --import-dir /home/mangoh/legato_framework/legato/framework/include --import-dir /home/mangoh/mangOH/apps/iot_mangOH/i2c
+
+rule CompileC
+  description = Compiling C source
+  depfile = $out.d
+  command =  gcc --sysroot=/ -MMD -MF $out.d -c $in -o $out -DLE_FILENAME=`basename $in` -Wall -fPIC -Werror -fvisibility=hidden -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED $cFlags
+
+rule CompileCxx
+  description = Compiling C++ source
+  depfile = $out.d
+  command =  g++ --sysroot=/ -MMD -MF $out.d -c $in -o $out -DLE_FILENAME=`basename $in` -Wall -fPIC -Werror -fvisibility=hidden  -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED $cxxFlags
+
+rule LinkCLib
+  description = Linking C library
+  command =  gcc --sysroot=/ -shared -o $out $in $ldFlags
+
+rule LinkCxxLib
+  description = Linking C++ library
+  command =  g++ --sysroot=/ -shared -o $out $in $ldFlags
+
+rule LinkCExe
+  description = Linking C executable
+  command =  gcc --sysroot=/ -fPIE -pie -o $out $in $ldFlags
+
+rule LinkCxxExe
+  description = Linking C++ executable
+  command =  g++ --sysroot=/ -fPIE -pie -o $out $in $ldFlags
+
+rule CompileJava
+  description = Compiling Java source
+  command = javac -cp $classPath -d `dirname $out` $in && touch $out
+
+rule MakeJar
+  description = Making JAR file
+  command = INDIR=`dirname $in`; find $$INDIR -name '*.class' -printf "-C $$INDIR\n%P\n"|xargs jar -cf $out
+
+rule MakeKernelModule
+  description = Build kernel driver module
+  depfile = $out.d
+  command = make -C $in
+
+rule BuildExternal
+  description = Running external build step
+  command = cd $builddir/$workingdir && $
+            export CFLAGS="--sysroot=/ $cFlags" $
+            CXXFLAGS="--sysroot=/ $cxxFlags" $
+            LDFLAGS="--sysroot=/ $ldFlags" $
+            PATH="$${LEGATO_ROOT}/bin:$$PATH" $
+            && $
+            $externalCommand
+
+rule GenInterfaceCode
+  description = Generating IPC interface code
+  command = ifgen --output-dir $outputDir $ifgenFlags $in
+
+rule GenPyApiCExtension
+  description = Generating Python API C Extension
+  command = cextgenerator.py $in -o $workDir > /dev/null
+rule CopyFile
+  description = Copying file
+  command = cp -d -f -T $in $out
+
+rule RegenNinjaScript
+  description = Regenerating build script
+  generator = 1
+  command = mkapp --dont-run-ninja "-t" "mp85" "i2c.adef"
+
+rule BundleFile
+  description = Bundling file
+  command = legato-install -m $modeFlags $in $out
+
+rule MakeAppInfoProperties
+  description = Creating info.properties
+  command = rm -f $out && $
+            md5=$$( ( cd $workingDir/staging && $
+                      find -P -print0 |LC_ALL=C sort -z && $
+                      find -P -type f -print0 |LC_ALL=C sort -z |xargs -0 md5sum && $
+                      find -P -type l -print0 |LC_ALL=C sort -z |xargs -0 -r -n 1 readlink $
+                    ) | md5sum) && $
+            md5=$${md5%% *} && $
+            ( echo "app.name=$name" && $
+              echo "app.md5=$$md5" && $
+              echo "app.version=$version" && $
+              echo "legato.version=`cat $$LEGATO_ROOT/version`" $
+            ) > $out
+
+rule PackApp
+  description = Packaging app
+  command = $
+            mtime=`stat -c %Y $adefPath` && $
+            find $workingDir/staging -exec touch --no-dereference --date=@$$mtime {} \; && $
+            (cd $workingDir/staging && find . -print0 | LC_ALL=C sort -z |tar --no-recursion --null -T - -cjf - ) > $workingDir/$name.$target && $
+            tarballSize=`stat -c '%s' $workingDir/$name.$target` && $
+            md5=`grep '^app.md5=' $in | sed 's/^app.md5=//'` && $
+            ( printf '{\n' && $
+              printf '"command":"updateApp",\n' && $
+              printf '"name":"$name",\n' && $
+              printf '"version":"$version",\n' && $
+              printf '"md5":"%s",\n' "$$md5" && $
+              printf '"size":%s\n' "$$tarballSize" && $
+              printf '}' && $
+              cat $workingDir/$name.$target $
+            ) > $out
+
+rule BinPackApp
+  description = Packaging app for distribution.
+  command = cp -r $stagingDir/* $workingDir/ && $
+            rm $workingDir/info.properties $workingDir/root.cfg && $
+            mtime=`stat -c %Y $adefPath` && $
+            find $workingDir -exec touch  --no-dereference --date=@$$mtime {} \; && $
+            (cd $workingDir/ && find . -print0 |LC_ALL=C sort -z  |tar --no-recursion --null -T - -cjf - ) > $out
+
+build _build_i2c/mp85/staging/read-only/lib/libComponent_i2cComponent.so: LinkCLib $builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/obj/8c673d4048d3df833165956c6ee3d1b3.o $builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/obj/_componentMain.c.o | /home/mangoh/legato_framework/legato/build/mp85/framework/lib/liblegato.so
+  ldFlags =  -L_build_i2c/mp85/staging/read-only/lib -Wl,--enable-new-dtags,-rpath="\$$ORIGIN/../lib" "-L$$LEGATO_BUILD/framework/lib" -llegato -lpthread -lrt -lm
+
+build $builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/obj/8c673d4048d3df833165956c6ee3d1b3.o: CompileC /home/mangoh/mangOH/apps/iot_mangOH/i2c/i2cComponent/i2c.c
+  cFlags = $cFlags -I$builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/src -DLE_COMPONENT_NAME=i2cComponent -DLE_LOG_SESSION=i2cComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=i2cComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _i2cComponent_COMPONENT_INIT()"
+
+build $builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/obj/_componentMain.c.o: CompileC $builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/src/_componentMain.c
+  cFlags = $cFlags -I$builddir/component/a18d213cd50e0bcc4bcfd3041e5d4fdd/src -DLE_COMPONENT_NAME=i2cComponent -DLE_LOG_SESSION=i2cComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=i2cComponent_LogLevelFilterPtr  "-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _i2cComponent_COMPONENT_INIT()"
+
+build $builddir/app/i2c/obj/i2c/_main.c.o: CompileC _build_i2c/mp85/app/i2c/src/i2c/_main.c
+  cFlags = $cFlags -DLE_COMPONENT_NAME=i2c_exe -DLE_LOG_SESSION=i2c_exe_LogSession -DLE_LOG_LEVEL_FILTER_PTR=i2c_exe_LogLevelFilterPtr 
+
+build $builddir/app/i2c/obj/i2c/i2c: LinkCExe $builddir/app/i2c/obj/i2c/_main.c.o | _build_i2c/mp85/staging/read-only/lib/libComponent_i2cComponent.so /home/mangoh/legato_framework/legato/build/mp85/framework/lib/liblegato.so /home/mangoh/legato_framework/legato/build/$target/framework/lib/liblegato.so
+  ldFlags = -rdynamic -Wl,--enable-new-dtags,-rpath="\$$ORIGIN/../lib" -L_build_i2c/mp85/staging/read-only/lib "-L_build_i2c/mp85/staging/read-only/lib" -lComponent_i2cComponent "-L$$LEGATO_BUILD/framework/lib" -llegato -lpthread -lrt -ldl -lm $ldFlags
+
+build $builddir/app/i2c/staging/read-only/lib/libComponent_i2cComponent.so : BundleFile _build_i2c/mp85/staging/read-only/lib/libComponent_i2cComponent.so
+  modeFlags = u+rw+x,g+r+x,o+x+r-w
+
+build $builddir/app/i2c/staging/read-only/bin/i2c : BundleFile $builddir/app/i2c/obj/i2c/i2c
+  modeFlags = u+rw+x,g+r+x,o+x+r-w
+
+build $builddir/app/i2c/staging/info.properties : MakeAppInfoProperties | $builddir/app/i2c/staging/read-only/lib/libComponent_i2cComponent.so $builddir/app/i2c/staging/read-only/bin/i2c $builddir/app/i2c/staging/root.cfg
+  name = i2c
+  version = 1.0.0
+  workingDir = $builddir/app/i2c
+
+build i2c.$target.update: PackApp $builddir/app/i2c/staging/info.properties
+  name = i2c
+  adefPath = /home/mangoh/mangOH/apps/iot_mangOH/i2c/i2c.adef
+  version = 1.0.0
+  workingDir = $builddir/app/i2c
+
+build _build_i2c/mp85/build.ninja: RegenNinjaScript | /home/mangoh/mangOH/apps/iot_mangOH/i2c/i2cComponent/Component.cdef
+

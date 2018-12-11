@@ -1,0 +1,30 @@
+sandboxed: true
+version: 1.0.0
+maxFileSystemBytes: 512K
+start: manual
+
+executables:
+{
+    i2c = ( i2cComponent )
+}
+
+processes:
+{
+    envVars:
+    {
+        LE_LOG_LEVEL = DEBUG
+    }
+    run:
+    {
+        (i2c)
+    }
+    faultAction: restart
+}
+
+requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-0 /dev/i2c-0
+    }
+}
